@@ -1,0 +1,71 @@
+<!--The route, controller, action, and view are now working harmoniously-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>New Article</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  </head>
+  <body>
+      <div class = "has-text-centered">
+        <section class="hero is-primary">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        New Article
+                    </h1>
+                </div>
+            </div>
+        </section>
+        
+        <div class = "container">
+        
+            <!--When you call form_with, you pass it an identifying scope for this form. 
+                In this case, it's the symbol :article. This tells the form_with helper what 
+                this form is for. 
+                The :url is articles_path because we want to sent the data from the form elsewhere
+            -->
+            <%= form_with scope: :article, url: articles_path, local: true do |form| %>
+            
+            <!--Inside the block for this method, the FormBuilder object - represented 
+                by form - is used to build two labels and two text fields, one each for the 
+                title and text of an article. 
+            -->
+            <p>
+                <%= form.label :title %><br>
+                <%= form.text_field :title %>
+            </p>
+            
+            <p>
+                <%= form.label :text %><br>
+                <%= form.text_area :text %>
+            </p>
+            
+            <div class = "field">
+                <%= form.label :file%>
+                <%= form.file_field :file%>
+            </div>
+            
+            <!--Finally, a call to submit on the form object will create a submit button for the form.
+                By default form_with submits forms using Ajax thereby skipping full page redirects.
+            -->
+            <p class="button is-info is-outlined">
+                <%= form.submit %>
+            </p>
+            <!--When a form is submitted, the fields of the form are sent to Rails as 
+                parameters. These parameters can then be referenced inside the controller 
+                actions, typically to perform a particular task.
+            -->
+            <% end %>
+            
+            <button class="button is-info is-outlined">
+                <%= link_to "Home", welcome_index_path %>
+            </button>
+            <button class="button is-info is-outlined">
+                <%= link_to "Back", articles_path %>
+            </button>
+        </div>
+    </div>
+  </body>
+</html>
